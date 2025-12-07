@@ -83,6 +83,9 @@ python train_adv.py
 *   **Output**: This will generate a `best.pt` weight file in `ADVENCE_DETECTION/runs/detect/train/weights/`.
 *   **Note**: You can skip this if you already have a pre-trained model.
 
+📥 **Download Pre-trained Models:**
+You can download our best trained models (for Detection & DeepSORT) from this [Google Drive Link](https://drive.google.com/drive/folders/1rxQrHpoiZW1e_Tczec0YUYBWQ0xkZuBT?usp=sharing).
+
 ### 3. Step 2: Tracking & Counting (Main Pipeline)
 
 Once you have your detection model (`best.pt`), run the tracking pipeline. We recommend using **DeepSORT** for the most accurate population counting.
