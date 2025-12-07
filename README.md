@@ -1,126 +1,168 @@
-# Population Count Underwater
+# 🐟 Population Count Underwater
 
-## Overview
+> **A robust computer vision framework for detecting, tracking, and counting marine life in challenging underwater environments.**
 
-**Population_count_underwater** is a comprehensive computer vision framework designed for accurate detection, segmentation, and counting of underwater marine life (specifically fish) in challenging underwater environments. 
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-orange)
+![YOLOv11](https://img.shields.io/badge/YOLO-v11l-green)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-This project integrates state-of-the-art techniques including:
-*   **Image Enhancement**: To improve visibility in turbid underwater footage.
-*   **Advanced Detection**: Utilizing YOLOv11 for high-accuracy object detection.
-*   **Segmentation**: Leveraging **AquaSAM** (Segment Anything Model) for precise foreground segmentation.
-*   **Robust Tracking & Counting**: Custom implementations of **ByteTrack** and **DeepSORT** with specialized logic for occlusion recovery and edge handling to ensure accurate population counts.
+## 📖 Overview
 
-## Key Features
+**Population_count_underwater** is an advanced system designed to automate the census of fish populations. Unlike standard tracking pipelines, this project addresses specific underwater challenges such as **turbidity**, **occlusion**, and **erratic movement**.
 
-*   **Underwater Image Enhancement**: Pre-processing pipeline using deep learning models (UIEC^2-Net, WaterNet) to correct color casts and improve contrast.
-*   **High-Performance Detection**: Fine-tuned YOLO models for detecting fish in varied underwater conditions.
-*   **Occlusion-Aware Tracking**: Modified ByteTrack algorithm that handles lost tracks due to occlusion or exiting the frame, reducing double counting.
-*   **Segmentation Capabilities**: Fine-tuned SAM for generating high-quality masks of underwater creatures.
+We combine **Image Enhancement**, **YOLOv11 Detection**, **AquaSAM Segmentation**, and a **Custom ByteTrack** algorithm to achieve high-accuracy counting.
 
-## Project Structure
+---
 
-```
+## ✨ Key Features
+
+*   **🌊 Underwater Image Enhancement**: Pre-processing with **UIEC^2-Net** and **WaterNet** to restore color and clarity.
+*   **🎯 Advanced Detection**: Powered by **YOLOv11l (Large)**, fine-tuned for underwater species detection.
+*   **🧠 Intelligent Tracking (Custom ByteTrack)**:
+    *   **Occlusion Recovery**: Re-identifies fish that temporarily disappear behind rocks or plants.
+    *   **Edge Logic**: Prevents double-counting when fish exit and re-enter the frame boundaries.
+    *   **Proximity Boost**: Uses spatial locality to maintain track identity in low-visibility conditions.
+*   **🎨 Precision Segmentation**: Uses **AquaSAM** (Segment Anything Model) for pixel-perfect foreground extraction.
+
+---
+
+## 📂 Project Structure
+
+```plaintext
 Population_count_underwater/
-├── ADVENCE_DETECTION/          # YOLO-based detection training and inference
-│   ├── train_adv.py            # Training script for advanced detection
-│   ├── evaluate_metrics.py     # Evaluation scripts
-│   └── ...
-├── AquaSAM/                    # Underwater Segment Anything Model (SAM)
-│   ├── AquaSAM_Inference.py    # Inference script for segmentation
-│   ├── train.py                # Fine-tuning script
-│   └── ...
-├── UWEnhancement/              # Underwater Image Enhancement Toolbox
-│   ├── test.py                 # Testing/Inference for enhancement models
-│   ├── train.py                # Training enhancement models
-│   └── ...
-├── Baseline/                   # Baseline models for comparison
-├── main_global_feature_edge_bytetrack.py  # Main pipeline using ByteTrack
-├── main_global_feature_edge_deepsort.py   # Main pipeline using DeepSORT
+├── 📁 ADVENCE_DETECTION/          # YOLOv11 Training & Evaluation
+│   ├── train_adv.py               # Main training script
+│   ├── evaluate_metrics.py        # Performance metrics
+│   └── predictions/               # Detection results (JSON/Images)
+│
+├── 📁 AquaSAM/                    # Segmentation Module
+│   ├── AquaSAM_Inference.py       # Run segmentation on images
+│   └── train.py                   # Fine-tune SAM
+│
+├── 📁 UWEnhancement/              # Image Enhancement Toolbox
+│   ├── test.py                    # Enhancement inference
+│   └── config/                    # Model configurations (WaterNet, etc.)
+│
+├── 📁 Baseline/                   # Comparison models
+│
+├── main_global_feature_edge_bytetrack.py  # Alternative Pipeline (without Re-identification)(ByteTrack)
+├── main_global_feature_edge_deepsort.py   #  🚀 MAIN PIPELINE (DeepSORT)
 └── README.md
 ```
 
-## Installation
+---
 
-### Prerequisites
-*   Python 3.8+
-*   CUDA-enabled GPU (recommended for training and real-time inference)
+## 🚀 Getting Started
 
-### Setup
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/AmitIITGoa/Population_count_underwater.git
-    cd Population_count_underwater
-    ```
+### 1. Installation
 
-2.  **Install Dependencies:**
-    It is recommended to use a virtual environment (Conda or venv).
-    
-    *For general dependencies:*
-    ```bash
-    pip install numpy opencv-python torch torchvision ultralytics scipy pillow
-    ```
+Clone the repository and install the required dependencies.
 
-    *For specific modules (AquaSAM, UWEnhancement), refer to their respective `README.md` files or `requirements.txt` inside the folders.*
-
-## Usage
-
-### 1. Image Enhancement
-Enhance your underwater video or images before detection to improve accuracy.
-Navigate to `UWEnhancement/` and run the inference script (refer to `UWEnhancement/README.md` for detailed config).
-
-### 2. Detection & Tracking Pipeline
-To run the full counting pipeline on a video file:
-
-**Using ByteTrack (Recommended):**
-This script uses YOLO for detection and a custom ByteTrack implementation for tracking.
 ```bash
-python main_global_feature_edge_bytetrack.py
-```
-*Note: Open the script to modify `VIDEO_PATH`, `OUTPUT_PATH`, and `MODEL_PATH` (path to your trained YOLO weights).*
+git clone https://github.com/AmitIITGoa/Population_count_underwater.git
+cd Population_count_underwater
 
-**Using DeepSORT:**
+# Create a virtual environment (Recommended)
+conda create -n fish_count python=3.9
+conda activate fish_count
+
+# Install dependencies
+pip install numpy opencv-python torch torchvision ultralytics scipy pillow matplotlib
+```
+
+### 2. Step 1: Detection (Training & Setup)
+
+Before tracking, you need a robust detection model. The **ADVENCE_DETECTION** folder contains the tools to train and evaluate YOLOv11 on your underwater dataset.
+
+**To Train the Model:**
+```bash
+cd ADVENCE_DETECTION
+python train_adv.py
+```
+*   **Output**: This will generate a `best.pt` weight file in `ADVENCE_DETECTION/runs/detect/train/weights/`.
+*   **Note**: You can skip this if you already have a pre-trained model.
+
+### 3. Step 2: Tracking & Counting (Main Pipeline)
+
+Once you have your detection model (`best.pt`), run the tracking pipeline. We recommend using **DeepSORT** for the most accurate population counting.
+
+**Using DeepSORT (Recommended):**
+This script integrates YOLO detection with DeepSORT tracking (using Re-ID features) to count fish accurately.
+
 ```bash
 python main_global_feature_edge_deepsort.py
 ```
 
-### 3. Training Detection Models
-To train the YOLO model on your own dataset:
-```bash
-cd ADVENCE_DETECTION
-# Edit run.sh or run python directly
-python train_adv.py
+**Configuration:**
+Open `main_global_feature_edge_deepsort.py` to adjust paths:
+```python
+VIDEO_PATH = "output_video2_enhanced.mp4"       # Input video
+OUTPUT_PATH = "output_video2_deepsort.mp4"      # Output video
+STATS_OUTPUT = "population_statistics.txt"      # Count statistics
+MODEL_PATH = "best.pt"                          # Path to your trained YOLO weights
 ```
 
-### 4. Segmentation (AquaSAM)
-To perform segmentation on underwater images:
+**Alternative: ByteTrack**
+If you prefer the motion-based tracker:
+```bash
+python main_global_feature_edge_bytetrack.py
+```
+
+### 4. Running Segmentation (AquaSAM)
+
+To generate segmentation masks for analysis:
+
 ```bash
 cd AquaSAM
 python AquaSAM_Inference.py
 ```
-
-## Modules Description
-
-### ADVENCE_DETECTION
-Contains scripts for training and evaluating advanced object detection models (YOLOv11). It includes scripts for metric evaluation and cluster job submission (`run.sh`).
-
-### AquaSAM
-Implementation of **AquaSAM**, an extension of the Segment Anything Model (SAM) tailored for underwater foreground segmentation. It supports fine-tuning on custom underwater datasets.
-
-### UWEnhancement
-A toolbox for underwater image enhancement based on PyTorch. It includes implementations of models like UIEC^2-Net and WaterNet to preprocess images for better visibility.
-
-### Tracking Scripts (Root)
-*   `main_global_feature_edge_bytetrack.py`: The core counting logic. It implements:
-    *   **High/Low Confidence Matching**: To associate weak detections with existing tracks.
-    *   **Occlusion Recovery**: Logic to handle fish temporarily hidden behind obstacles.
-    *   **Edge Logic**: Prevents ID switching when fish leave and re-enter the frame edges.
-
-## Credits & References
-
-*   **AquaSAM**: [Official Repository](https://github.com/duooppa/AquaSAM)
-*   **UWEnhancement**: [Official Repository](https://github.com/BIGWangYuDong/UWEnhancement)
-*   **YOLO**: [Ultralytics](https://github.com/ultralytics/ultralytics)
-*   **ByteTrack**: [Paper/Repo](https://github.com/ifzhang/ByteTrack)
+*   This uses the fine-tuned SAM model to segment fish from the background.
 
 ---
-*Maintained by AmitIITGoa*
+
+## 🧠 Methodology Details
+
+### ⚙️ Pipeline Overview
+The system follows a strict two-stage process:
+1.  **Detection**: First, the YOLOv11 model detects all fish in the current frame.
+2.  **Tracking**: These detections are then passed to the tracking algorithm to associate them with existing IDs.
+
+### 🔍 Detection Method: YOLOv11
+We utilize the **YOLOv11 Large** model for its superior balance of speed and accuracy.
+*   **Input**: Enhanced underwater frames.
+*   **Output**: Bounding boxes with confidence scores.
+*   **Location**: `ADVENCE_DETECTION/`
+
+### 🛤️ Tracking Methods
+We provide two tracking implementations. **DeepSORT is currently recommended** for its robustness in re-identifying fish after occlusion.
+
+#### 1. DeepSORT (Recommended - Re-ID Based)
+*   **Mechanism**: Uses a deep learning model to extract appearance features (Re-ID) from bounding boxes.
+*   **Pros**: Excellent at handling long-term occlusions and re-identifying fish that leave and re-enter the frame, provided they look distinct.
+*   **Cons**: Slightly more computationally intensive than ByteTrack.
+
+#### 2. ByteTrack (Motion Based - No Re-ID)
+*   **Mechanism**: Relies primarily on high-performance motion prediction (Kalman Filter) and Intersection over Union (IoU). **Does not perform Re-ID feature extraction.**
+*   **Key Advantage**: Associates low-confidence detections that other trackers ignore.
+*   **Use Case**: Best when fish look identical and motion is the only reliable differentiator.
+
+---
+
+## 📊 Results & Outputs
+
+*   **Video Output**: Located in the root directory (e.g., `output_video2_bytetrack_fixed_v3.mp4`).
+*   **Population Stats**: Text files (e.g., `population_statistics_v7.txt`) containing the final count.
+*   **Training Metrics**: Located in `ADVENCE_DETECTION/runs/detect/`.
+*   **Predictions**: JSON format results in `ADVENCE_DETECTION/predictions/`.
+
+---
+
+## 👥 Credits
+
+*   **Maintainer**: AmitIITGoa
+*   **References**:
+    *   [AquaSAM](https://github.com/duooppa/AquaSAM)
+    *   [ByteTrack](https://github.com/ifzhang/ByteTrack)
+    *   [Ultralytics YOLO](https://github.com/ultralytics/ultralytics)
+    *   [UWEnhancement](https://github.com/BIGWangYuDong/UWEnhancement)
