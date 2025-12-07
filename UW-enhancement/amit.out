@@ -1,0 +1,34 @@
+============================================
+ Starting job: main_high_gpu
+ Node: gpu-dgx1
+ GPUs allocated: 0
+ Start time: Sun Nov  9 04:22:59 PM IST 2025
+============================================
+[1/3] Loading config from: ./config/UIEC2Net.py
+[2/3] Building model...
+[3/3] Loading checkpoint from: UIEC2Net.pth
+remove prefix 'module.'
+--- Model loaded on GPU (CUDA) ---
+
+============================================================
+Processing split: train
+============================================================
+Found 10214 images in /home/amit/experiment_comparing_model/ADVENCE_DETECTION/UWEnhancement/dataset/train/images
+
+============================================================
+Processing split: test
+============================================================
+Found 486 images in /home/amit/experiment_comparing_model/ADVENCE_DETECTION/UWEnhancement/dataset/test/images
+
+============================================================
+Processing split: valid
+============================================================
+Found 973 images in /home/amit/experiment_comparing_model/ADVENCE_DETECTION/UWEnhancement/dataset/valid/images
+
+============================================================
+✨ Dataset processing complete! ✨
+New dataset created at: custom_dataset
+============================================================
+============================================
+ Job finished on Sun Nov  9 05:26:36 PM IST 2025
+============================================
