@@ -1,0 +1,233 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% B. Tech. project report template based on the Tufte style 
+% 
+% Edited by: Clint P. George 
+% Edited on: March 29, 2022 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{tufte-handout}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+uw_enhancement_architecture_1764761577991
+% Set up the images/graphics package and path 
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{img/}} % PUT ALL YOUR IMAGES IN img 
+
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+
+% Provides paragraphs of dummy text
+\usepackage{mwe}
+\usepackage{kantlipsum}  
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+
+\newcommand{\institutename}{Indian Institute of Technology Goa}
+\newcommand{\departmentname}{Computer Science and Engineering }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHANGE THE BELOW LINES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\projecttitle}{\textbf{Underwater species identification and explainabilty using Machine Learning}}
+\newcommand{\studentnameA}{Harshil N Patel}
+\newcommand{\studentrollnumberA}{2203123}
+\newcommand{\studentnameB}{Md Hamza Z Sabugar}
+\newcommand{\studentrollnumberB}{2203126}
+\newcommand{\adviser}{Dr. Clint P. George}
+\newcommand{\adviserdepartment}{Computer Science and Engineering}
+
+%% UNCOMMENT AND EDIT THE BELOW THREE LINES, ONLY IF you have a co-adviser/supervisor  
+\def\hascoadv{TRUE}  
+\newcommand{\coadviser}{Dr. Satyanath Bhat}
+\newcommand{\coadviserdepartment}{Computer Science and Engineering}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DO NOT CHANGE THE BELOW LINES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{\projecttitle\thanks{A project report submitted to the Department of \departmentname in partial fulfillment of the requirements for the B. Tech. degree at the  \textsc{\institutename}.}
+\thanks{\textit{Supervisor:} \textbf{\adviser}, \adviserdepartment}
+\ifdefined\hascoadv
+  \thanks{\textit{Co-supervisor:} \textbf{\coadviser}, \coadviserdepartment}
+\fi
+}
+\author[Last name]{\studentnameA, \texttt{\hspace{0.1cm}} \studentnameB}
+\date{\today}  % if the \date{} command is left out, the current date will be used
+\begin{document}
+
+\thispagestyle{empty}
+
+\begin{fullwidth}
+\begin{center}
+
+\includegraphics[width=.3\linewidth]{IIT-Goa-Logo-Black-on-White}
+\vspace{3cm}
+
+{\Large Bachelor Thesis Project (BTP) Report}
+
+\vspace{1cm}
+\textsc{\studentnameA}
+
+\vspace{.2cm}
+\textit{Roll Number:} \studentrollnumberA
+
+\vspace{.5cm}
+\textsc{\studentnameB}
+
+\vspace{.2cm}
+\textit{Roll Number:} \studentrollnumberB
+
+\vspace{1cm}
+\textit{Month of Submission:} Dec 2025
+
+\vspace{2cm}
+
+\textit{Supervisor:} \textbf{\adviser}, \adviserdepartment
+
+\ifdefined\hascoadv
+  \textit{Co-supervisor:} \textbf{\coadviser}, \coadviserdepartment
+\fi
+
+\end{center}
+
+\vfill 
+\noindent {\small \emph{This report is submitted towards partial fulfillment of the requirements for the award of the Bachelor of Technology (B.Tech) degree in \departmentname at the \institutename.}}
+\end{fullwidth}
+
+\clearpage
+
+\maketitle% this prints the handout title, author, and date
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WRITE YOU REPORT CONTENT HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{abstract}
+\noindent  This report details the development and implementation of a robust deep learning model, YOLO for realtime automated underwater species identification. The system was trained and evaluated on diverse underwater imagery datasets to accurately classify marine organisms. Critically, to address the need for model explainability, in sensitive ecological applications, a technique such as Grad-CAM and Eigen-CAM is integrated. This integration allows for visualization of the specific image regions driving the model's precision, thereby building trust and transparency in the identification results.
+\end{abstract}
+
+% B. Tech. report outline 
+% Please stick to this outline
+
+\section{\textbf{\LARGE Introduction and Overview}}\label{sec:intro}
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.98\linewidth]{cover.jpg}
+    \caption{An example figure.\label{fig:sample-2}}
+\end{figure}
+
+This B.Tech Project, titled Underwater Species Identification and Explainability Using Machine Learning, addresses the critical need for an automated solution in marine monitoring, as manually analyzing vast amounts of underwater video footage is slow, highly prone to human error, and impractical for large-scale ecosystem studies.  Our main objective is to create a deep learning-powered automated system for fish detection and classification in real time.  Crucially, the system is designed to go beyond standard accuracy by focusing on explainability, which provides clear and reliable insights into how the model makes its predictions, making the system reliable for researchers and conservationists.The project addresses important domain-specific issues, such as the scarcity of sizable, varied underwater datasets and the intrinsic image degradation brought on by light absorption, scattering, color distortion, and marine particles.  To ensure robustness, we utilize advanced deep learning architectures like YOLOv11 and YOLOv12 , incorporate comprehensive pre-processing pipelines, and implement architectural modifications such as adding extra attention modules to refine feature extraction in low-visibility conditions.  We use the gradient-free EigenCAM method for the crucial explainability component, which yields accurate, real-time heatmaps that tightly contour the species and demonstrate that the model is concentrating on pertinent physical characteristics (such as scales or texture) rather than just color biases or background noise.
+
+\section{\textbf{\LARGE Related Work\cite{Zhou2024}}}\label{sec:related-work}
+The domain of real-time underwater object detection has seen significant advancements, primarily driven by the need for scalable marine environmental monitoring despite the challenges posed by poor image quality and varying object sizes. Many existing works focus on optimizing single-stage detectors, with recent studies successfully improving YOLO architectures (e.g., YOLOv8) through the integration of specialized components like the Cross Stage Multi-Branch and Large Kernel Spatial Pyramid to enhance feature extraction from complex underwater scenes. Furthermore, successful methodologies include network designs like YWnet, which leverages a Convolutional Block Attention mechanism for better small target detection, and DP-FishNet, which utilizes a dual-path pyramid vision transformer framework for robust fish identification. While these efforts have significantly advanced detection speed and accuracy, there is a recognized gap in model transparency. Consequently, our project extends the existing state-of-the-art by integrating Explainable AI (XAI) techniques, specifically EigenCAM, to not only achieve high-performance species classification but also provide a real-time, precise, and structurally justified explanation for every prediction.
+
+\section{\textbf{\LARGE Methodology}}\label{sec:methodology}
+
+\begin{enumerate}
+    \item \textbf{\Large Data Preparation and Augmentation}
+    
+    The project utilized two primary datasets to ensure the robustness and generalization of the detection model across various underwater conditions:
+    \begin{itemize}
+        \item \textbf{Fish-Detection Dataset}: This dataset comprises relatively clear underwater images, serving as a baseline for initial model training and performance evaluation under ideal conditions. This data has: 
+        \begin{itemize}
+            \item Train images : 8448
+            \item Test images : 407
+            \item Val images : 798
+        \end{itemize}
+        \item \textbf{URPC2020 Dataset}: This set introduced the real-world challenges of underwater vision, containing images severely impacted by low visibility, blur, light scattering, and color cast, which was crucial for testing the efficacy of the proposed pre-processing methods.This data has: 
+        \begin{itemize}
+            \item Train images : 5543
+            \item Test images : 800
+            \item Val images : 1200
+        \end{itemize}
+    \end{itemize}
+    To prevent overfitting and enhance the model's ability to generalize, a comprehensive set of data augmentation techniques was employed using the Albumentations library. These augmentations included standard operations like rotation, scaling, and flipping, alongside color-space adjustments, which are essential for simulating the diverse lighting conditions found underwater.
+    
+    \item \textbf{\Large Image Pre-processing Pipelines}
+    
+    Addressing the severe degradation of underwater images was a cornerstone of the methodology. Instead of relying on a single method, five distinct pre-processing pipelines were systematically developed and tested to determine the optimal sequence for image enhancement.
+    
+    The foundational techniques used in these pipelines included:
+    \begin{itemize}
+        \item \textbf{Color Correction}: Methods like white-balance and adaptive-red-boost were applied to neutralize the blue/green color cast resulting from light absorption in water.
+    
+        \item \textbf{Contrast Enhancement}: Techniques such as lab-clahe (Contrast Limited Adaptive Histogram Equalization in LAB color space) were used to improve local contrast and reveal details obscured by haze or low light.
+    
+        \item \textbf{Denoising}: Advanced methods, including Adaptive Denoising and various Blurring filters, were implemented to reduce image noise, such as "marine snow," without significantly blurring the target species.
+    \end{itemize}
+    
+    The most effective pipeline was then selected based on its ability to maximize the detection accuracy (mAP) of the subsequent YOLO model, demonstrating that targeted image enhancement is vital for complex underwater environments.
+    
+    \item \textbf{Deep Learning Architecture and Modifications}
+    \begin{itemize}
+        \item \textbf{Model Selection}
+        
+        The project utilized the You Only Look Once (YOLO) framework, specifically YOLOv11 and YOLOv12 variants, due to their superior balance of high detection accuracy and rapid inference speed, which is non-negotiable for real-time video analysis. YOLO functions as a single-stage detector, simultaneously predicting bounding boxes and class probabilities across a grid over the entire image in a single pass. This design minimizes latency compared to two-stage detectors.
+        
+        The standard YOLO architecture consists of three main components:
+        \begin{enumerate}
+            \item \textbf{Backbone}: Responsible for extracting multi-scale feature maps from the input image.
+            
+            \item \textbf{Neck}: A feature pyramid network (FPN) structure that aggregates and fuses features from different layers of the backbone, enabling the model to detect objects of varying sizes.
+            
+            \item \textbf{Head}: The final prediction layer that outputs the bounding box coordinates and classification scores.
+        \end{enumerate}
+        \item \textbf{Architectural Modifications}
+        
+        To further enhance performance in the challenging underwater domain, the baseline YOLOv11 model was structurally modified:
+        \begin{itemize}
+            \item \textbf{Attention Mechanism Integration}: An Extra Attention Module was added to the network's structure. This module enhances the model's ability to focus on salient features of the target species, effectively filtering out irrelevant background noise and improving detection in turbid water.
+        
+            \item \textbf{C3K2 Block Replacement}: The standard C3K2 blocks in the network's neck were replaced with Cross Stage Multi-Branch (CSMB)-Darknet blocks. This modification improves the flow of information and enhances the feature extraction capacity, proving beneficial for detecting partially occluded or small objects.
+        
+            \item \textbf{U-Shaped Transformer Enhancement}: A U-shaped Transformer block was incorporated into the architecture. This component aids in capturing global dependencies and contextual information across the image, which is vital when local features are obscured by poor visibility.
+        \end{itemize}
+    \end{itemize}
+    
+    \item \textbf{Explainable AI (XAI) Implementation}
+    
+    The final, distinguishing aspect of the methodology was the implementation of Explainable AI (XAI) to ensure model transparency and reliability.
+    
+    \textbf{Technique Used}: The project utilized EigenCAM for generating visual explanations (heatmaps).
+    
+    \textbf{Rationale for EigenCAM}: Unlike gradient-based methods (e.g., Grad-CAM) which can be slow and rely on backpropagation, EigenCAM is gradient-free, allowing it to generate explanations instantly, matching YOLO’s high-speed inference without introducing lag.
+    
+    \textbf{Proof of Concept}: EigenCAM's output provides precise object localization, with heatmaps tightly contouring the species' shape (e.g., scales, fins), demonstrating that the model is making predictions based on the correct physical features of the fish rather than spurious background elements (like coral or color biases). This validates the structural integrity of the detection results.
+\end{enumerate}
+
+\section{Experimental Analysis}\label{sec:experiments}
+
+\kant[1]
+
+
+\subsection{Discussion}\label{sec:discussion} 
+
+\kant[1]
+
+\bibliography{btp}
+\bibliographystyle{plainnat}
+
+
+\end{document}
